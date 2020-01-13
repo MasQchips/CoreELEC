@@ -1,0 +1,45 @@
+/* This should be considered an incomplete totally unedcuated guess */
+
+#include "gxl_p231_2g.dts"
+
+/{
+	coreelec-dt-id = "gxl_p231_1g_dm14";
+
+
+};
+
+&pinctrl_periphs {
+	dvb_p_ts0_pins: dvb_p_ts0_pins {
+			tsin_a {
+				groups = "GPIODV_0",
+				"GPIODV_1",
+				"GPIODV_2",
+				"GPIODV_3",
+				"GPIODV_4",
+				"GPIODV_5",
+				"GPIODV_6",
+				"GPIODV_7",
+				"GPIODV_8",
+				"GPIODV_9",
+				"GPIODV_10";
+				function = "tsin_a";
+			};
+		};
+	dvb_s_ts0_pins: dvb_s_ts0_pins {
+		tsin_a {
+			groups = "tsin_d0_a_dv0",
+				"tsin_clk_a_dv8",
+				"ttsin_sop_a_dv9",
+				"tsin_d_valid_a_dv10";
+			function = "tsin_a";
+		};
+	};
+
+};
+
+&i2c2 {
+	status = "okay";
+	pinctrl-0 = <&c_i2c_master_pin1>;
+	master_i2c_speed = <100000>;
+};
+
