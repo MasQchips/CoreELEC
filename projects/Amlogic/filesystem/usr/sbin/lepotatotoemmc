@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 # Copyright (C) 2018-present Team CoreELEC (https://coreelec.org)
 
-DISTRO_BOOTLABEL="COREELEC"
+DISTRO_BOOTLABEL="MASQELEC"
 DISTRO_DISKLABEL="STORAGE"
 SYSTEM_PART_START=8192
 SYSTEM_SIZE=512
@@ -141,13 +141,13 @@ case $LE_DT_ID in
 esac
 
 if ! $(grep "^emmc_timeout=1$" /flash/config.ini >/dev/null); then
-  echo "This script will help you to install CoreELEC on a LePotato eMMC from"
+  echo "This script will help you to install masQelec on a LePotato eMMC from"
   echo "within a running CE on SD card or USB drive."
   echo ""
   echo "First we will set a 30s timout for u-boot."
-  echo "Please reboot CoreELEC from SD/USB without the eMMC plugged in."
+  echo "Please reboot masQelec from SD/USB without the eMMC plugged in."
   echo "You will see the boot splash with the words: 30s: Please insert the eMMC."
-  echo "After the 30s timeout CoreELEC will boot as normal and you will have to run this"
+  echo "After the 30s timeout masQelec will boot as normal and you will have to run this"
   echo "script again to continue. If you don't manage to insert the eMMC in time just reboot and try again."
   read -p "Type \"yes\" if you know what you are doing or anything else to exit: " choice
   case "$choice" in

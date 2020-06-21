@@ -7,7 +7,7 @@ ConditionPathExists=/proc/device-tree/meson-remote/compatible
 
 [Service]
 Type=oneshot
-ExecStart=/usr/lib/coreelec/remote-config
+ExecStart=/usr/lib/masqelec/remote-config
 
 [Install]
 WantedBy=graphical.target

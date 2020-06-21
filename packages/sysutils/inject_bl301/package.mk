@@ -27,11 +27,11 @@ pre_make_target() {
 
 makeinstall_target() {
   mkdir -p ${INSTALL}/usr/sbin
-  mkdir -p ${INSTALL}/usr/lib/coreelec
+  mkdir -p ${INSTALL}/usr/lib/masqelec
   mkdir -p ${INSTALL}/etc/inject_bl301
     install -m 0755 inject_bl301 ${INSTALL}/usr/sbin/inject_bl301
-    install -m 0755 ${PKG_DIR}/scripts/check-bl301.sh ${INSTALL}/usr/lib/coreelec/check-bl301
-    install -m 0755 ${PKG_DIR}/scripts/update-bl301.sh ${INSTALL}/usr/lib/coreelec/update-bl301
+    install -m 0755 ${PKG_DIR}/scripts/check-bl301.sh ${INSTALL}/usr/lib/masqelec/check-bl301
+    install -m 0755 ${PKG_DIR}/scripts/update-bl301.sh ${INSTALL}/usr/lib/masqelec/update-bl301
     install -m 0644 ${PKG_BUILD}/bl301.conf ${INSTALL}/etc/inject_bl301/bl301.conf
 }
 

@@ -5,7 +5,7 @@
 
 message="$message\n There is no working 'installtointernal'."
 message="$message\n "
-message="$message\n On CoreELEC -ng releases 'installtointernal' has been replaced"
+message="$message\n On masQelec -ng releases 'installtointernal' has been replaced"
 message="$message\n by 'ceemmc'"
 message="$message\n "
 message="$message\n Please refer to the following link for more information:"

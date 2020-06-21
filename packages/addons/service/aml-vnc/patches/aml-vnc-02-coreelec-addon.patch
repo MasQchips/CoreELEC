@@ -98,7 +98,7 @@ diff -urN a/addon/resources/settings.xml b/addon/resources/settings.xml
  		<setting id="AML_VNC_PORT" type="number" label="1010" default="5900" />
  		<setting id="AML_VNC_AUTH" type="bool" label="1011" default="true" />
 -		<setting id="AML_VNC_PWD" type="text" label="1012" default="libreelec" enable="eq(-1,true)" />
-+		<setting id="AML_VNC_PWD" type="text" label="1012" default="coreelec" enable="eq(-1,true)" />
++		<setting id="AML_VNC_PWD" type="text" label="1012" default="masqelec" enable="eq(-1,true)" />
      </category>
  </settings>
 diff -urN a/addon/settings-default.xml b/addon/settings-default.xml
@@ -109,7 +109,7 @@ diff -urN a/addon/settings-default.xml b/addon/settings-default.xml
      <setting id="AML_VNC_PORT" value="5900" />
      <setting id="AML_VNC_AUTH" value="true" />
 -    <setting id="AML_VNC_PWD" value="libreelec" />
-+    <setting id="AML_VNC_PWD" value="coreelec" />
++    <setting id="AML_VNC_PWD" value="masqelec" />
  </settings>
  
 diff -urN a/addon/system.d/service.aml-vnc.service b/addon/system.d/service.aml-vnc.service

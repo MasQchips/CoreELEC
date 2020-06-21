@@ -1,9 +1,9 @@
 [Unit]
-Description=CoreELEC BL301 Update Service
+Description=masQelec BL301 Update Service
 
 [Service]
 Type=oneshot
-ExecStart=/usr/lib/coreelec/update-bl301 -v
+ExecStart=/usr/lib/masqelec/update-bl301 -v
 RemainAfterExit=no
 
 [Install]

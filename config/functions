@@ -1138,7 +1138,7 @@ done
     sed -e "s|@PKG_ADDON_NEWS@||g" -i "$addon_xml"
   fi
 
-  provider_name=${PKG_MAINTAINER:-"Team CoreELEC"}
+  provider_name=${PKG_MAINTAINER:-"masQelec"}
   addon_name=${PKG_ADDON_NAME:-"$PKG_NAME"}
 
   for f in $PKG_DIR/source/resources/screenshot-*.{jpg,png}; do

@@ -25,8 +25,8 @@ makeinstall_target() {
   mkdir -p $INSTALL/usr/bin
     cp remotecfg $INSTALL/usr/bin
 
-  mkdir -p $INSTALL/usr/lib/coreelec
-    cp $PKG_DIR/scripts/* $INSTALL/usr/lib/coreelec
+  mkdir -p $INSTALL/usr/lib/masqelec
+    cp $PKG_DIR/scripts/* $INSTALL/usr/lib/masqelec
 }
 
 post_install() {

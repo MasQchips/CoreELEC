@@ -147,7 +147,7 @@
     INSTALLER_SUPPORT="no"
 
   # build and install driver addons (yes / no)
-    DRIVER_ADDONS_SUPPORT="yes"
+    DRIVER_ADDONS_SUPPORT="no"
 
   # driver addons to install:
   # for a list of additinoal drivers see packages/linux-driver-addons
@@ -170,4 +170,4 @@
     ENTWARE_ARCH="aarch64-k3.10"
 
   # CoreELEC Subdevices
-    SUBDEVICES="LePotato Odroid_C2"
+    SUBDEVICES=""

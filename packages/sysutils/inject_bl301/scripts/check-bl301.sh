@@ -28,9 +28,9 @@ fi
 
 if [ "$VERBOSE" = 1 ]; then
   if [ "$INSTALLED" = 1 ]; then
-    echo "CoreELEC BL301 Installed"
+    echo "masQelec BL301 Installed"
   else
-    echo "CoreELEC BL301 Not found"
+    echo "masQelec BL301 Not found"
   fi
 fi
 exit $INSTALLED

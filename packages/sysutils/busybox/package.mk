@@ -134,11 +134,11 @@ makeinstall_target() {
     cp $PKG_DIR/scripts/pastebinit $INSTALL/usr/bin/
     ln -sf pastebinit $INSTALL/usr/bin/paste
 
-  mkdir -p $INSTALL/usr/lib/coreelec
-    cp $PKG_DIR/scripts/functions $INSTALL/usr/lib/coreelec
-    cp $PKG_DIR/scripts/fs-resize $INSTALL/usr/lib/coreelec
+  mkdir -p $INSTALL/usr/lib/masqelec
+    cp $PKG_DIR/scripts/functions $INSTALL/usr/lib/masqelec
+    cp $PKG_DIR/scripts/fs-resize $INSTALL/usr/lib/masqelec
     sed -e "s/@DISTRONAME@/$DISTRONAME/g" \
-        -i $INSTALL/usr/lib/coreelec/fs-resize
+        -i $INSTALL/usr/lib/masqelec/fs-resize
 
     if listcontains "${FIRMWARE}" "rpi-eeprom"; then
       cp $PKG_DIR/scripts/rpi-flash-firmware $INSTALL/usr/lib/libreelec

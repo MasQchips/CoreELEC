@@ -1,0 +1,158 @@
+diff --git a/addons/skin.estuary/xml/Custom_1107_SearchDialog.xml b/addons/skin.estuary/xml/Custom_1107_SearchDialog.xml
+index 7394843..59e36cf 100644
+--- a/addons/skin.estuary/xml/Custom_1107_SearchDialog.xml
++++ b/addons/skin.estuary/xml/Custom_1107_SearchDialog.xml
+@@ -34,12 +34,6 @@
+ 						<onclick condition="System.hasAddon(plugin.video.youtube)">ActivateWindow(videos,"plugin://plugin.video.youtube/kodion/search/list/",return)</onclick>
+ 						<onclick condition="!System.hasAddon(plugin.video.youtube)">InstallAddon(plugin.video.youtube)</onclick>
+ 					</item>
+-					<item>
+-						<label>$LOCALIZE[31115]</label>
+-						<onclick>Dialog.Close(all)</onclick>
+-						<onclick condition="System.hasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=moviedbbrowser,search=True)</onclick>
+-						<onclick condition="!System.hasAddon(script.extendedinfo)">InstallAddon(script.extendedinfo)</onclick>
+-					</item>
+ 				</content>
+ 			</control>
+ 		</control>
+diff --git a/addons/skin.estuary/xml/DialogMusicInfo.xml b/addons/skin.estuary/xml/DialogMusicInfo.xml
+index 27b42e4..0c8c540 100644
+--- a/addons/skin.estuary/xml/DialogMusicInfo.xml
++++ b/addons/skin.estuary/xml/DialogMusicInfo.xml
+@@ -386,16 +386,6 @@
+ 						<onclick>ActivateWindow(1104)</onclick>
+ 						<visible>String.IsEqual(ListItem.DBType,artist) | String.IsEqual(ListItem.DBType,album)</visible>
+ 					</control>
+-					<control type="radiobutton" id="440">
+-						<label>$LOCALIZE[31114]</label>
+-						<include content="VideoInfoButtonsCommon">
+-							<param name="icon" value="icons/infodialogs/youtube.png" />
+-						</include>
+-						<onclick>Action(close)</onclick>
+-						<visible>System.hasAddon(script.extendedinfo)</visible>
+-						<onclick condition="!String.IsEqual(ListItem.DBType,song)">RunScript(script.extendedinfo,info=youtubebrowser,id=$INFO[ListItem.Artist] $INFO[ListItem.Album])</onclick>
+-						<onclick condition="String.IsEqual(ListItem.DBType,song)">RunScript(script.extendedinfo,info=youtubebrowser,id=$INFO[ListItem.Artist] $INFO[ListItem.Title])</onclick>
+-					</control>
+ 					<include content="InfoDialogButton">
+ 						<param name="id" value="6" />
+ 						<param name="icon" value="icons/infodialogs/update.png" />
+diff --git a/addons/skin.estuary/xml/DialogPVRInfo.xml b/addons/skin.estuary/xml/DialogPVRInfo.xml
+index a8903e9..98866cc 100644
+--- a/addons/skin.estuary/xml/DialogPVRInfo.xml
++++ b/addons/skin.estuary/xml/DialogPVRInfo.xml
+@@ -106,15 +106,6 @@
+ 						<param name="label" value="$LOCALIZE[19003]" />
+ 						<param name="visible" value="Window.IsActive(PVRGuideInfo)" />
+ 					</include>
+-					<include content="InfoDialogButton">
+-						<param name="width" value="275" />
+-						<param name="id" value="440" />
+-						<param name="icon" value="icons/infodialogs/youtube.png" />
+-						<param name="label" value="$LOCALIZE[31114]" />
+-						<param name="onclick_1" value="Action(close)" />
+-						<param name="onclick_2" value="RunScript(script.extendedinfo,info=youtubebrowser,id=$INFO[ListItem.Title])" />
+-						<param name="visible" value="System.hasAddon(script.extendedinfo)" />
+-					</include>
+ 				</control>
+ 			</control>
+ 			<include content="InfoDialogTopBarInfo">
+diff --git a/addons/skin.estuary/xml/DialogVideoInfo.xml b/addons/skin.estuary/xml/DialogVideoInfo.xml
+index fc1af3f..f0dc31f 100644
+--- a/addons/skin.estuary/xml/DialogVideoInfo.xml
++++ b/addons/skin.estuary/xml/DialogVideoInfo.xml
+@@ -9,7 +9,6 @@
+ 			<height>1080</height>
+ 			<centerleft>50%</centerleft>
+ 			<width>1920</width>
+-			<animation effect="fade" start="100" end="0" time="200" tween="sine" condition="Window.IsVisible(script-script.extendedinfo-DialogVideoInfo.xml) | Window.IsVisible(script-script.extendedinfo-DialogInfo.xml) | Window.IsVisible(script-script.extendedinfo-VideoList.xml)">Conditional</animation>
+ 			<control type="group">
+ 				<top>150</top>
+ 				<left>66</left>
+@@ -262,8 +261,6 @@
+ 					<height>370</height>
+ 					<onleft>50</onleft>
+ 					<onright>50</onright>
+-					<onup condition="System.hasAddon(script.extendedinfo) + Control.HasFocus(50)">RunScript(script.extendedinfo,info=extendedactorinfo,name=$INFO[Container(50).ListItem.Label])</onup>
+-					<onup condition="!System.hasAddon(script.extendedinfo)">InstallAddon(script.extendedinfo)</onup>
+ 					<ondown>140</ondown>
+ 					<scrolltime>200</scrolltime>
+ 					<orientation>horizontal</orientation>
+@@ -407,14 +404,6 @@
+ 						<param name="label" value="$LOCALIZE[20410]" />
+ 						<param name="visible" value="!String.IsEmpty(ListItem.Trailer) + ![String.StartsWith(Container.FolderPath,plugin://) + String.Contains(Container.FolderPath,trailer)]" />
+ 					</include>
+-					<include content="InfoDialogButton">
+-						<param name="id" value="440" />
+-						<param name="icon" value="icons/infodialogs/trailer_search.png" />
+-						<param name="label" value="$LOCALIZE[31090]" />
+-						<param name="onclick_1" value="Action(close)" />
+-						<param name="onclick_2" value="RunScript(script.extendedinfo,info=youtubebrowser,id=$INFO[ListItem.Title] $INFO[ListItem.Year])" />
+-						<param name="visible" value="System.hasAddon(script.extendedinfo) + String.IsEqual(ListItem.DBType,movie) + !Control.IsVisible(11)" />
+-					</include>
+ 					<include content="InfoDialogButton">
+ 						<param name="id" value="441" />
+ 						<param name="icon" value="icons/infodialogs/cinema.png" />
+@@ -461,13 +450,6 @@
+ 					</control>
+ 					<include content="InfoDialogButton">
+ 						<param name="id" value="101" />
+-						<param name="icon" value="icons/infodialogs/info.png" />
+-						<param name="label" value="$LOCALIZE[31034]" />
+-						<param name="onclick_1" value="RunScript(script.extendedinfo,info=openinfodialog)" />
+-						<param name="visible" value="System.hasAddon(script.extendedinfo) + [String.IsEqual(ListItem.DbType,movie) | String.IsEqual(ListItem.DbType,tvshow) | String.IsEqual(ListItem.DbType,season) | String.IsEqual(ListItem.DbType,episode)]" />
+-					</include>
+-					<include content="InfoDialogButton">
+-						<param name="id" value="102" />
+ 						<param name="icon" value="icons/infodialogs/image.png" />
+ 						<param name="label" value="$LOCALIZE[31028]" />
+ 						<param name="onclick_1" value="SetProperty(fanart,$ESCINFO[ListItem.Art(fanart)],home)" />
+@@ -542,7 +524,6 @@
+ 			<animation effect="fade" start="100" end="0" time="200">WindowClose</animation>
+ 			<centerleft>50%</centerleft>
+ 			<width>1920</width>
+-			<animation effect="fade" start="100" end="0" time="200" tween="sine" condition="Window.IsVisible(script-script.extendedinfo-DialogVideoInfo.xml) | Window.IsVisible(script-script.extendedinfo-DialogInfo.xml) | Window.IsVisible(script-script.extendedinfo-VideoList.xml)">Conditional</animation>
+ 			<bottom>0</bottom>
+ 			<height>70</height>
+ 			<include>MediaFlags</include>
+diff --git a/addons/skin.estuary/xml/Includes.xml b/addons/skin.estuary/xml/Includes.xml
+index 43865b6..4580c5d 100644
+--- a/addons/skin.estuary/xml/Includes.xml
++++ b/addons/skin.estuary/xml/Includes.xml
+@@ -32,7 +32,7 @@
+ 	<constant name="dialogbuttons_itemgap">-20</constant>
+ 	<constant name="list_y_offset">0</constant>
+ 	<constant name="list_item_height">80</constant>
+-	<expression name="infodialog_active">Window.IsActive(musicinformation) | Window.IsActive(songinformation) | Window.IsActive(movieinformation) | Window.IsActive(addoninformation) | Window.IsActive(pvrguideinfo) | Window.IsActive(pvrrecordinginfo) | Window.IsActive(pictureinfo) | Window.IsVisible(script-script.extendedinfo-DialogVideoInfo.xml) | Window.IsVisible(script-script.extendedinfo-DialogInfo.xml) | Window.IsVisible(script-script.extendedinfo-VideoList.xml)</expression>
++	<expression name="infodialog_active">Window.IsActive(musicinformation) | Window.IsActive(songinformation) | Window.IsActive(movieinformation) | Window.IsActive(addoninformation) | Window.IsActive(pvrguideinfo) | Window.IsActive(pvrrecordinginfo) | Window.IsActive(pictureinfo)</expression>
+ 	<expression name="sidebar_visible">ControlGroup(9000).HasFocus | Control.HasFocus(6130) | Control.HasFocus(6131) | Window.IsActive(MyPlaylist.xml)</expression>
+ 	<include name="CommonScrollbars">
+ 		<control type="group">
+diff --git a/addons/skin.estuary/xml/Variables.xml b/addons/skin.estuary/xml/Variables.xml
+index 0aeec8f..eb9f07d 100644
+--- a/addons/skin.estuary/xml/Variables.xml
++++ b/addons/skin.estuary/xml/Variables.xml
+@@ -303,13 +303,13 @@
+ 	</variable>
+ 	<variable name="AddonsFanartVar">
+ 		<value condition="Skin.HasSetting(no_fanart)"></value>
+-		<value condition="Window.IsActive(musicinformation) | Window.IsActive(movieinformation) | Window.IsActive(addoninformation) | Window.IsActive(pvrguideinfo) | Window.IsActive(pvrrecordinginfo) | Window.IsActive(pictureinfo) | Window.IsVisible(script-script.extendedinfo-DialogVideoInfo.xml) | Window.IsVisible(script-script.extendedinfo-DialogInfo.xml) | Window.IsVisible(script-script.extendedinfo-VideoList.xml)">$INFO[Window(home).Property(infobackground)]</value>
++		<value condition="Window.IsActive(musicinformation) | Window.IsActive(movieinformation) | Window.IsActive(addoninformation) | Window.IsActive(pvrguideinfo) | Window.IsActive(pvrrecordinginfo) | Window.IsActive(pictureinfo) ">$INFO[Window(home).Property(infobackground)]</value>
+ 		<value condition="!String.IsEmpty(Container.ListItem.Art(fanart))">$INFO[Container.ListItem.Art(fanart)]</value>
+ 		<value condition="!String.IsEmpty(Skin.String(HomeFanart.path))">$INFO[Skin.String(HomeFanart.path)]$INFO[Container(9000).ListItem.Property(id)]$INFO[Skin.String(HomeFanart.ext)]</value>
+ 	</variable>
+ 	<variable name="HomeFanartVar">
+ 		<value condition="Skin.HasSetting(no_fanart)"></value>
+-		<value condition="Window.IsActive(musicinformation) | Window.IsActive(movieinformation) | Window.IsActive(addoninformation) | Window.IsActive(pvrguideinfo) | Window.IsActive(pvrrecordinginfo) | Window.IsActive(pictureinfo) | Window.IsVisible(script-script.extendedinfo-DialogVideoInfo.xml) | Window.IsVisible(script-script.extendedinfo-DialogInfo.xml) | Window.IsVisible(script-script.extendedinfo-VideoList.xml)">$INFO[Window(home).Property(infobackground)]</value>
++		<value condition="Window.IsActive(musicinformation) | Window.IsActive(movieinformation) | Window.IsActive(addoninformation) | Window.IsActive(pvrguideinfo) | Window.IsActive(pvrrecordinginfo) | Window.IsActive(pictureinfo) ">$INFO[Window(home).Property(infobackground)]</value>
+ 		<value condition="!String.IsEmpty(Container.ListItem.Art(fanart))">$INFO[Container.ListItem.Art(fanart)]</value>
+ 		<value condition="!String.IsEmpty(Container.ListItem.Property(FanartCode))">$INFO[Skin.String(WeatherFanart.path)]$INFO[Container.ListItem.Property(FanartCode)]$INFO[Skin.String(WeatherFanart.ext)]</value>
+ 		<value condition="!String.IsEmpty(Skin.String(HomeFanart.path)) + Control.HasFocus(804)">$INFO[Skin.String(HomeFanart.path)]power$INFO[Skin.String(HomeFanart.ext)]</value>
+@@ -320,7 +320,7 @@
+ 	</variable>
+ 	<variable name="MediaFanartVar">
+ 		<value condition="Skin.HasSetting(no_fanart)"></value>
+-		<value condition="Window.IsActive(musicinformation) | Window.IsActive(movieinformation) | Window.IsActive(addoninformation) | Window.IsActive(pvrguideinfo) | Window.IsActive(pvrrecordinginfo) | Window.IsActive(pictureinfo) | Window.IsVisible(script-script.extendedinfo-DialogVideoInfo.xml) | Window.IsVisible(script-script.extendedinfo-DialogInfo.xml) | Window.IsVisible(script-script.extendedinfo-VideoList.xml)">$INFO[Window(home).Property(infobackground)]</value>
++		<value condition="Window.IsActive(musicinformation) | Window.IsActive(movieinformation) | Window.IsActive(addoninformation) | Window.IsActive(pvrguideinfo) | Window.IsActive(pvrrecordinginfo) | Window.IsActive(pictureinfo) ">$INFO[Window(home).Property(infobackground)]</value>
+ 		<value condition="Container.Content(genres) + Window.IsActive(videos)">$INFO[Skin.String(MovieGenreFanart.path)]$INFO[ListItem.Label]$INFO[Skin.String(MovieGenreFanart.ext)]</value>
+ 		<value condition="Window.IsActive(pictures) + String.IsEmpty(ListItem.Art(fanart))">$INFO[ListItem.FolderPath]</value>
+ 		<value condition="!String.IsEmpty(ListItem.Art(fanart))">$INFO[ListItem.Art(fanart)]</value>

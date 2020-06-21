@@ -11,7 +11,7 @@ import xbmc
 import xbmcaddon
 import xbmcgui
 
-sys.path.append('/usr/share/kodi/addons/service.coreelec.settings')
+sys.path.append('/usr/share/kodi/addons/service.masqelec.settings')
 import oe
 
 __author__      = 'lrusak'

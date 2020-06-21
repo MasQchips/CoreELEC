@@ -1,0 +1,145 @@
+diff --git a/pvr.hts/resources/language/resource.language.en_gb/strings.po b/pvr.hts/resources/language/resource.language.en_gb/strings.po
+index 58edc56..6c5f32a 100644
+--- a/pvr.hts/resources/language/resource.language.en_gb/strings.po
++++ b/pvr.hts/resources/language/resource.language.en_gb/strings.po
+@@ -62,7 +62,11 @@ msgctxt "#30010"
+ msgid "Timer settings"
+ msgstr ""
+ 
+-#empty strings from id 30011 to 30049
++msgctxt "#30011"
++msgid "Hide notifications"
++msgstr ""
++
++#empty strings from id 30012 to 30049
+ 
+ msgctxt "#30050"
+ msgid "Auto recordings"
+diff --git a/pvr.hts/resources/language/resource.language.es_es/strings.po b/pvr.hts/resources/language/resource.language.es_es/strings.po
+index 6fe1f28..54197d9 100644
+--- a/pvr.hts/resources/language/resource.language.es_es/strings.po
++++ b/pvr.hts/resources/language/resource.language.es_es/strings.po
+@@ -60,6 +60,10 @@ msgctxt "#30010"
+ msgid "Timer settings"
+ msgstr "Ajustes de grabación"
+ 
++msgctxt "#30011"
++msgid "Hide notifications"
++msgstr "Ocultar notificaciones"
++
+ msgctxt "#30050"
+ msgid "Auto recordings"
+ msgstr "Grabaciones automáticas"
+diff --git a/pvr.hts/resources/settings.xml b/pvr.hts/resources/settings.xml
+index 9e0265f..458cd99 100644
+--- a/pvr.hts/resources/settings.xml
++++ b/pvr.hts/resources/settings.xml
+@@ -8,6 +8,7 @@
+     <setting id="pass" type="text" label="30005" option="hidden" enable="!eq(-1,)" default="" />
+     <setting id="connect_timeout" type="slider" option="int" range="1,60" label="30006" default="10" />
+     <setting id="response_timeout" type="slider" option="int" range="1,60" label="30007" default="5" />
++	<setting id="hide_notifications" type="bool" label="30011" default="true" />
+   </category>
+ 
+   <category label="30009">
+diff --git a/src/tvheadend/HTSPConnection.cpp b/src/tvheadend/HTSPConnection.cpp
+index a79151a..b78a9b1 100644
+--- a/src/tvheadend/HTSPConnection.cpp
++++ b/src/tvheadend/HTSPConnection.cpp
+@@ -236,13 +236,16 @@ void HTSPConnection::SetState ( PVR_CONNECTION_STATE state )
+     }
+   }
+ 
+-  if (prevState != newState)
+-  {
+-    static std::string serverString;
+-
+-    /* Notify connection state change (callback!) */
+-    serverString = GetServerString();
+-    PVR->ConnectionStateChange(serverString.c_str(), newState, NULL);
++  if (!Settings::GetInstance().GetHideNotifications())
++  {  
++	if (prevState != newState)
++	{
++		static std::string serverString;
++
++		/* Notify connection state change (callback!) */
++		serverString = GetServerString();
++		PVR->ConnectionStateChange(serverString.c_str(), newState, NULL);
++	}
+   }
+ }
+ 
+diff --git a/src/tvheadend/Settings.cpp b/src/tvheadend/Settings.cpp
+index 8d119c0..fce5927 100644
+--- a/src/tvheadend/Settings.cpp
++++ b/src/tvheadend/Settings.cpp
+@@ -31,6 +31,7 @@ const int         Settings::DEFAULT_HTTP_PORT           = 9981;
+ const int         Settings::DEFAULT_HTSP_PORT           = 9982;
+ const std::string Settings::DEFAULT_USERNAME            = "";
+ const std::string Settings::DEFAULT_PASSWORD            = "";
++const bool        Settings::DEFAULT_HIDE_NOTIFICATIONS = true;
+ const int         Settings::DEFAULT_CONNECT_TIMEOUT     = 10000; // millisecs
+ const int         Settings::DEFAULT_RESPONSE_TIMEOUT    = 5000;  // millisecs
+ const bool        Settings::DEFAULT_TRACE_DEBUG         = false;
+@@ -56,6 +57,7 @@ void Settings::ReadSettings()
+   SetPortHTTP(ReadIntSetting("http_port", DEFAULT_HTTP_PORT));
+   SetUsername(ReadStringSetting("user", DEFAULT_USERNAME));
+   SetPassword(ReadStringSetting("pass", DEFAULT_PASSWORD));
++  SetHideNotifications(ReadBoolSetting("hide_notifications", DEFAULT_HIDE_NOTIFICATIONS));
+ 
+   /* Note: Timeouts in settings UI are defined in seconds but we expect them to be in milliseconds. */
+   SetConnectTimeout(ReadIntSetting("connect_timeout", DEFAULT_CONNECT_TIMEOUT / 1000) * 1000);
+@@ -107,6 +109,8 @@ ADDON_STATUS Settings::SetSetting(const std::string &key, const void *value)
+     return SetStringSetting(GetUsername(), value);
+   else if (key == "pass")
+     return SetStringSetting(GetPassword(), value);
++  else if (key == "hide_notifications")
++    return SetBoolSetting(GetHideNotifications(), value);
+   else if (key == "connect_timeout")
+   {
+     if (GetConnectTimeout() == (*(reinterpret_cast<const int *>(value)) * 1000))
+diff --git a/src/tvheadend/Settings.h b/src/tvheadend/Settings.h
+index 30b1489..f3549f2 100644
+--- a/src/tvheadend/Settings.h
++++ b/src/tvheadend/Settings.h
+@@ -40,6 +40,7 @@ namespace tvheadend {
+     static const int         DEFAULT_HTSP_PORT;
+     static const std::string DEFAULT_USERNAME;
+     static const std::string DEFAULT_PASSWORD;
++	static const bool        DEFAULT_HIDE_NOTIFICATIONS;
+     static const int         DEFAULT_CONNECT_TIMEOUT;  // millisecs
+     static const int         DEFAULT_RESPONSE_TIMEOUT; // millisecs
+     static const bool        DEFAULT_TRACE_DEBUG;
+@@ -85,6 +86,7 @@ namespace tvheadend {
+     int         GetPortHTTP() const { return m_iPortHTTP; }
+     std::string GetUsername() const { return m_strUsername; }
+     std::string GetPassword() const { return m_strPassword; }
++	bool        GetHideNotifications() const { return m_bHideNotifications; }
+     int         GetConnectTimeout() const { return m_iConnectTimeout; }
+     int         GetResponseTimeout() const { return m_iResponseTimeout; }
+     bool        GetTraceDebug() const { return m_bTraceDebug; }
+@@ -108,6 +110,7 @@ namespace tvheadend {
+       m_iPortHTTP(DEFAULT_HTSP_PORT),
+       m_strUsername(DEFAULT_USERNAME),
+       m_strPassword(DEFAULT_PASSWORD),
++	  m_bHideNotifications(DEFAULT_HIDE_NOTIFICATIONS),
+       m_iConnectTimeout(DEFAULT_CONNECT_TIMEOUT),
+       m_iResponseTimeout(DEFAULT_RESPONSE_TIMEOUT),
+       m_bTraceDebug(DEFAULT_TRACE_DEBUG),
+@@ -136,6 +139,7 @@ namespace tvheadend {
+     void SetPortHTTP(int value) { m_iPortHTTP = value; }
+     void SetUsername(const std::string& value) { m_strUsername = value; }
+     void SetPassword(const std::string& value) { m_strPassword = value; }
++	void SetHideNotifications(bool value) { m_bHideNotifications = value; }
+     void SetConnectTimeout(int value) { m_iConnectTimeout = value; }
+     void SetResponseTimeout(int value) { m_iResponseTimeout = value; }
+     void SetTraceDebug(bool value) { m_bTraceDebug = value; }
+@@ -169,6 +173,7 @@ namespace tvheadend {
+     int         m_iPortHTTP;
+     std::string m_strUsername;
+     std::string m_strPassword;
++	bool        m_bHideNotifications;
+     int         m_iConnectTimeout;
+     int         m_iResponseTimeout;
+     bool        m_bTraceDebug;

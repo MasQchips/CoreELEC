@@ -21,8 +21,8 @@ if [ "$1" = "-v" ]; then
   VERBOSE=1
 fi
 
-if [ -e /usr/lib/coreelec/check-bl301 ]; then
-  /usr/lib/coreelec/check-bl301
+if [ -e /usr/lib/masqelec/check-bl301 ]; then
+  /usr/lib/masqelec/check-bl301
   INSTALLED=${?}
   if [ "$INSTALLED" = 1 ]; then
     touch /tmp/bl301_injected
@@ -36,14 +36,14 @@ fi
 
 if [ "$VERBOSE" = 1 ]; then
   if [ "$INSTALLED" = 1 ] && [ "$UPDATE" = 0 ]; then
-    echo "CoreELEC BL301 got updated"
+    echo "masQelec BL301 got updated"
   elif [ "$INSTALLED" = 1 ] && [ "$UPDATE" = 1 ]; then
-    echo "CoreELEC BL301 installed but no update needed"
+    echo "masQelec BL301 installed but no update needed"
   elif [ "$INSTALLED" = 1 ]; then
-    echo "CoreELEC BL301 installed but error on update: " $UPDATE
+    echo "masQelec BL301 installed but error on update: " $UPDATE
     RET=$UPDATE
   elif [ "$INSTALLED" = 0 ]; then
-    echo "CoreELEC BL301 not installed"
+    echo "masQelec BL301 not installed"
   fi
 fi
 

@@ -10,7 +10,7 @@ import xbmcaddon
 import subprocess
 from xml.dom.minidom import parse
 
-sys.path.append('/usr/share/kodi/addons/service.coreelec.settings')
+sys.path.append('/usr/share/kodi/addons/service.masqelec.settings')
 
 import oe
 
