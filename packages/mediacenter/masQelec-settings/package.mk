@@ -3,7 +3,7 @@
 
 PKG_NAME="masQelec-settings"
 PKG_VERSION="1864f9213c48cb172189c395ad6c2b2d245a3690"
-PKG_SHA256="a271222e0532a0d4e8cfd18e4e18039bc5a33920557ee06b79111b250547d365"
+PKG_SHA256="c230d26f7d77cd840569594f0ae432b3bd452a8cb5779e8ccd81f15d6950b9a4"
 PKG_LICENSE="GPL"
 PKG_SITE=""
 PKG_URL="https://github.com/masQelec/service.masqelec.settings/archive/$PKG_VERSION.tar.gz"
